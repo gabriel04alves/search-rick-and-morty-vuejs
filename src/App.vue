@@ -7,13 +7,14 @@ import FooterDefault from './components/FooterDefault.vue';
 <template>
   <HeaderDefault class="header"></HeaderDefault>  
 
-  <RouterView class="content"/>
+  <RouterView />
 
   <FooterDefault class="footer"></FooterDefault>
 </template>
 
 <style>
-  .content {
-    height: 70%;
+  .footer {
+    bottom: 0;
+    position: fixed;
   }
 </style>
