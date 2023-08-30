@@ -41,7 +41,7 @@
     display: flex;
     justify-content: center;
     gap: 2.5px;
-    font-size: 1.3vh;
+    font-size: 1.5vh;
 }
 
 .logo {

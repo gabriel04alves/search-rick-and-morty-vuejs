@@ -7,12 +7,15 @@ import FooterDefault from './components/FooterDefault.vue';
 <template>
   <HeaderDefault class="header"></HeaderDefault>  
 
-  <RouterView />
+  <RouterView class="view"/>
 
   <FooterDefault class="footer"></FooterDefault>
 </template>
 
 <style>
+  .view {
+    height:max-content;
+  }
   .footer {
     bottom: 0;
     position: fixed;
