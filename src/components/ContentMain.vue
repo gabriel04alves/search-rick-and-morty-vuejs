@@ -40,9 +40,13 @@
                 </button>
             </div>
         </form>
-        <div id="result-style">
-            <div id="results"></div>
-            <img src="" alt="" id="img">
+        <div class="card-result" id="result-style">
+            <div>
+                <img class="img-character" src="" alt="" id="img">
+            </div>
+            <div class="box-result">
+                <p class="text-result" id="results"></p>
+            </div>
         </div>
     </div>
 </template>
@@ -50,7 +54,8 @@
 <script>
 import '../assets/css/content.css'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', (event) => {
+    event.preventDefault
     const characterId = document.getElementById('characterId');
     const btnGo = document.getElementById('btn-go');
     const results = document.getElementById('results');
@@ -60,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const result = fetch(`https://rickandmortyapi.com/api/character/${value}`)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data);
             return data;
         });
         return result;
@@ -69,21 +73,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const keys = ['name', 'status', 'species', 'gender', 'origin'];
 
     const buildResult = (result) => {
-        const newObject = {};
-        keys.map((key) => document.getElementById(key))
+        return keys.map((key) => document.getElementById(key))
             .map((elem) => {
-                elem.checked && (newObject[elem.name] = result[elem.name]);
+                if(elem.checked && typeof(result[elem.name]) !== 'object'){
+                    const newElem = document.createElement('p');
+                    newElem.innerHTML = `${elem.name}: ${result[elem.name]}`;
+                    results.appendChild(newElem);
+                } else if (elem.checked === true && (elem.name === 'origin')){
+                    const newElem = document.createElement('p');
+                    newElem.innerHTML = `${elem.name}: ${result[elem.name].name}`;
+                    results.appendChild(newElem);
+                } 
             });
-        return newObject;
+        
     }
 
     btnGo.addEventListener('click', async (event) => {
         event.preventDefault();
+
+        if(characterId.value === ''){
+            return results.innerHTML = 'Selecione um filtro!';
+        }
         const result = await fetchApi(characterId.value);
-        // results.textContent = `${JSON.stringify(result, undefined, 2)}`;
-        results.textContent = `${JSON.stringify(buildResult(result), undefined, 2)}`;
-        console.log(buildResult(result))
-        image.src = `${result.image}`
+        if(results.firstChild === null) {
+            image.src = `${result.image}`
+            buildResult(result);
+        } else {
+            results.innerHTML = ''
+            image.src = `${result.image}`
+            buildResult(result);
+        }
     });
 });
 </script>
