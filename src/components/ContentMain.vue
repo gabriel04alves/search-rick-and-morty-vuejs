@@ -12,23 +12,23 @@
             <div class="opitions">
                 <div class="opition">
                     <label class="textInput" for="name">Nome</label>
-                    <input class="checkbox" name="name" type="checkbox">
+                    <input class="checkbox" name="name" id="name" type="checkbox">
                 </div>
                 <div class="opition">
                     <label class="textInput" for="status">Status</label>
-                    <input class="checkbox" name="status" type="checkbox">
+                    <input class="checkbox" name="status" id="status" type="checkbox">
                 </div>
                 <div class="opition">
-                    <label class="textInput" for="specie">Espécie</label>
-                    <input class="checkbox" name="specie" type="checkbox">
+                    <label class="textInput" for="species">Espécie</label>
+                    <input class="checkbox" name="species" id="species" type="checkbox">
                 </div>
                 <div class="opition">
                     <label class="textInput" for="gender">Gênero</label>
-                    <input class="checkbox" name="gender" type="checkbox">
+                    <input class="checkbox" name="gender" id="gender" type="checkbox">
                 </div>
                 <div class="opition">
                     <label class="textInput" for="origin">Planeta de origem</label>
-                    <input class="checkbox" name="origin" type="checkbox">
+                    <input class="checkbox" name="origin" id="origin" type="checkbox">
                 </div>                
             </div>
             <div class="btns">
@@ -66,10 +66,23 @@ document.addEventListener('DOMContentLoaded', () => {
         return result;
     }
 
+    const keys = ['name', 'status', 'species', 'gender', 'origin'];
+
+    const buildResult = (result) => {
+        const newObject = {};
+        keys.map((key) => document.getElementById(key))
+            .map((elem) => {
+                elem.checked && (newObject[elem.name] = result[elem.name]);
+            });
+        return newObject;
+    }
+
     btnGo.addEventListener('click', async (event) => {
         event.preventDefault();
         const result = await fetchApi(characterId.value);
-        results.textContent = `${JSON.stringify(result, undefined, 2)}`;
+        // results.textContent = `${JSON.stringify(result, undefined, 2)}`;
+        results.textContent = `${JSON.stringify(buildResult(result), undefined, 2)}`;
+        console.log(buildResult(result))
         image.src = `${result.image}`
     });
 });
