@@ -1,4 +1,15 @@
-# app-rick-and-morty
+# Search Rick-And-Morty
+
+Essa é uma aplicação web que utiliza a The Rick and Morty API para buscar personagens por meio do ID.
+
+#### | Deploy: https://search-rick-and-morty.surge.sh/
+#### | Api: https://rickandmortyapi.com/documentation
+#### | Base: https://www.youtube.com/watch?v=kbuLUcloSfY&ab_channel=GustavoCaetano
+
+
+#
+
+## Configurações: 
 
 This template should help get you started developing with Vue 3 in Vite.
 
